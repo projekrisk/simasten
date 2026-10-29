@@ -115,7 +115,8 @@ class ReportPage extends Page
                 'corrections as tm_count' => fn ($q) => $q->where('status_presensi', 'TM')->whereHas('report', fn ($r) => $r->where('tahun', $year)),
                 'corrections as hd_count' => fn ($q) => $q->where('status_presensi', 'HD')->whereHas('report', fn ($r) => $r->where('tahun', $year)),
             ])
-            ->orderByDesc('corrections_count');
+            ->orderByDesc('corrections_count')
+            ->orderBy('nama', 'asc');
 
         if ($limit !== null) {
             $query->take($limit);

@@ -95,16 +95,13 @@ class MediaPageTest extends TestCase
         $this->assertFileExists($fullPath);
         $this->assertEquals($relPath, $correction->foto_datang);
 
-        // Delete via MediaPage
         Livewire::actingAs($user)
             ->test(MediaPage::class)
             ->call('deleteMedia', $relPath)
             ->assertNotified('Media Berhasil Dihapus');
 
-        // Verify file is physically unlinked
         $this->assertFileDoesNotExist($fullPath);
 
-        // Verify database reference is safely nullified
         $correction->refresh();
         $this->assertNull($correction->foto_datang);
     }
@@ -147,7 +144,6 @@ class MediaPageTest extends TestCase
             'status' => 'draf',
         ]);
 
-        // Correction with null photo (as happens after deletion)
         AttendanceCorrection::create([
             'perbaikan_id' => $report->id,
             'pegawai_id' => $employee->id,
@@ -173,7 +169,6 @@ class MediaPageTest extends TestCase
     {
         $user = User::factory()->create();
 
-        // If an orphan or legacy pdf file exists anywhere in uploads
         File::ensureDirectoryExists(public_path('uploads/test_legacy'));
         $pdfPath = public_path('uploads/test_legacy/document.pdf');
         File::put($pdfPath, '%PDF-1.4 test data');

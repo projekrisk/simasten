@@ -810,7 +810,6 @@
 
         {{-- KPI STATS GRID --}}
         <div class="simasten-stats-grid">
-            <!-- TOTAL KASUS -->
             <div class="simasten-stat-card card-primary">
                 <div class="simasten-stat-header">
                     <span class="simasten-stat-label">Total Kasus Kendala</span>
@@ -827,7 +826,6 @@
                 </div>
             </div>
 
-            <!-- KASUS TM -->
             <div class="simasten-stat-card card-danger">
                 <div class="simasten-stat-header">
                     <span class="simasten-stat-label">Status TM (Telat Masuk)</span>
@@ -844,10 +842,9 @@
                 </div>
             </div>
 
-            <!-- KASUS HD -->
             <div class="simasten-stat-card card-warning">
                 <div class="simasten-stat-header">
-                    <span class="simasten-stat-label">Status HD (Telat Pulang)</span>
+                    <span class="simasten-stat-label">Status HD (Pulang Cepat)</span>
                     <div class="simasten-stat-icon icon-warning">
                         <x-heroicon-o-clock class="simasten-icon-md" style="width: 20px; height: 20px;" />
                     </div>
@@ -888,7 +885,7 @@
                     </div>
                     <div class="simasten-legend-item">
                         <span class="simasten-legend-dot dot-hd"></span>
-                        <span><strong>HD (Telat Pulang):</strong> {{ $comparison['hd'] }} kasus ({{ $comparison['hd_pct'] }}%)</span>
+                        <span><strong>HD (Pulang Cepat):</strong> {{ $comparison['hd'] }} kasus ({{ $comparison['hd_pct'] }}%)</span>
                     </div>
                 </div>
             </div>

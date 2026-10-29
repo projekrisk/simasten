@@ -7,6 +7,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\PaginationMode;
 use Filament\Tables\Table;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
@@ -15,6 +16,8 @@ class EmployeesTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('nama', 'asc')
+            ->paginationMode(PaginationMode::Simple)
             ->columns([
                 TextColumn::make('nama')
                     ->label('Nama Pegawai')
@@ -40,7 +43,6 @@ class EmployeesTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
             ])
             ->recordActions([
                 EditAction::make()

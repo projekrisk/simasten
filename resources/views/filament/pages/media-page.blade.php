@@ -680,7 +680,6 @@
 
     <div class="simasten-media-wrapper">
 
-        <!-- 2. KPI STATS CARDS -->
         <div class="simasten-stats-grid">
             <div class="simasten-stat-card">
                 <div class="simasten-stat-icon-wrap" style="background-color: #eff6ff; color: #2563eb;">
@@ -733,9 +732,7 @@
             </div>
         </div>
 
-        <!-- 3. TOOLBAR: CATEGORIES, SEARCH, & BULK ACTIONS -->
         <div class="simasten-toolbar">
-            <!-- Category Tabs -->
             <div class="simasten-cat-tabs">
                 <button type="button"
                     wire:click="setCategory('all')"
@@ -766,9 +763,7 @@
                 </button>
             </div>
 
-            <!-- Filter & Bulk Actions Bar -->
             <div class="simasten-filter-row">
-                <!-- Search Input -->
                 <div class="simasten-search-box">
                     <svg class="simasten-search-icon simasten-icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -778,7 +773,6 @@
                         placeholder="Cari berdasarkan nama file, nama pegawai, status, atau nomor surat..." />
                 </div>
 
-                <!-- Bulk Selection & Action -->
                 <div class="simasten-bulk-bar">
                     <label class="inline-flex items-center gap-2 cursor-pointer text-xs font-semibold text-gray-700 dark:text-gray-300">
                         <input type="checkbox"
@@ -805,7 +799,6 @@
             </div>
         </div>
 
-        <!-- 4. MEDIA ITEMS GRID -->
         @if(count($items) > 0)
             <div class="simasten-media-grid">
                 @foreach($items as $item)
@@ -813,7 +806,6 @@
                         $isSelected = in_array($item['relative_path'], $selectedFiles);
                     @endphp
                     <div class="simasten-media-card {{ $isSelected ? 'selected' : '' }}">
-                        <!-- Top Floating Selection Checkbox -->
                         <div class="simasten-card-check">
                             <input type="checkbox"
                                 wire:model.live="selectedFiles"
@@ -821,12 +813,10 @@
                                 class="rounded border-gray-300 text-primary-600 focus:ring-primary-500" />
                         </div>
 
-                        <!-- Top Floating Category Badge -->
                         <div class="simasten-card-cat-badge">
                             {{ $item['category_label'] }}
                         </div>
 
-                        <!-- Thumbnail Preview Area -->
                         <div class="simasten-thumb-box">
                             <img src="{{ $item['url'] }}"
                                 alt="{{ $item['filename'] }}"
@@ -835,7 +825,6 @@
                                 wire:click="openPreview('{{ $item['url'] }}', 'image', '{{ $item['filename'] }}')" />
                         </div>
 
-                        <!-- Card Body Details -->
                         <div class="simasten-card-body">
                             <div class="simasten-card-name" title="{{ $item['filename'] }}">
                                 {{ $item['filename'] }}
@@ -846,7 +835,6 @@
                                 <span>{{ $item['modified_at'] }}</span>
                             </div>
 
-                            <!-- Cross-reference Status Badge -->
                             <div>
                                 <span class="simasten-ref-pill simasten-pill-{{ $item['badge_color'] }}" title="{{ $item['ref_text'] }}">
                                     @if($item['badge_color'] === 'info' || $item['badge_color'] === 'warning')
@@ -871,9 +859,7 @@
                             </div>
                         </div>
 
-                        <!-- Card Footer Action Buttons -->
                         <div class="simasten-card-actions">
-                            <!-- Preview Button -->
                             <button type="button"
                                 class="simasten-action-btn"
                                 wire:click="openPreview('{{ $item['url'] }}', 'image', '{{ $item['filename'] }}')"
@@ -885,7 +871,6 @@
                                 Lihat
                             </button>
 
-                            <!-- Download Button -->
                             <a href="{{ $item['url'] }}"
                                 download="{{ $item['filename'] }}"
                                 target="_blank"
@@ -897,7 +882,6 @@
                                 Unduh
                             </a>
 
-                            <!-- Delete Button (Safe deletion with Filament confirmation modal) -->
                             <button type="button"
                                 class="simasten-action-btn btn-delete"
                                 wire:click="mountAction('deleteMedia', { path: '{{ $item['relative_path'] }}' })"
@@ -912,7 +896,6 @@
                 @endforeach
             </div>
         @else
-            <!-- Empty State -->
             <div class="simasten-empty-card">
                 <svg class="simasten-icon-empty" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -928,7 +911,6 @@
             </div>
         @endif
 
-        <!-- 5. PREVIEW MODAL LIGHTBOX -->
         @if($previewUrl)
             <div class="simasten-modal-backdrop" wire:click.self="closePreview">
                 <div class="simasten-modal-card">

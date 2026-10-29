@@ -265,7 +265,6 @@ class AttendanceReportTest extends TestCase
             'status' => 'draf',
         ]);
 
-        // Input data sengaja dibuat acak: tanggal lebih akhir dibuat lebih dulu
         AttendanceCorrection::create([
             'perbaikan_id' => $report->id,
             'pegawai_id' => $zulfa->id,
@@ -541,23 +540,18 @@ class AttendanceReportTest extends TestCase
 
         $this->actingAs($user);
 
-        // Test Dashboard
         $response = $this->get('/admin');
         $response->assertOk();
 
-        // Test Pegawai index
         $responsePegawai = $this->get('/admin/pegawai');
         $responsePegawai->assertOk();
 
-        // Test Perbaikan index
         $responsePerbaikan = $this->get('/admin/perbaikan');
         $responsePerbaikan->assertOk();
 
-        // Test Laporan page
         $responseLaporan = $this->get('/admin/laporan');
         $responseLaporan->assertOk();
 
-        // Test Pengaturan page
         $responsePengaturan = $this->get('/admin/pengaturan');
         $responsePengaturan->assertOk();
     }
@@ -588,20 +582,15 @@ class AttendanceReportTest extends TestCase
             'jam_pulang_ubah' => '15:30:00',
         ]);
 
-        // Create Employee page
         $this->get('/admin/pegawai/create')->assertOk();
 
-        // Edit Employee page
         $this->get("/admin/pegawai/{$employee->id}/edit")->assertOk();
 
-        // Create Report page
         $this->get('/admin/perbaikan/create')->assertOk();
 
-        // Edit Report page
         $responseReportEdit = $this->get("/admin/perbaikan/{$report->id}/edit");
         $responseReportEdit->assertOk();
 
-        // Test Livewire CorrectionsRelationManager table
         Livewire::test(CorrectionsRelationManager::class, [
             'ownerRecord' => $report,
             'pageClass' => EditAttendanceReport::class,
@@ -663,12 +652,10 @@ class AttendanceReportTest extends TestCase
             'status' => 'draf',
         ]);
 
-        // Test Create Page renders
         $this->get("/admin/detail-perbaikan/create?perbaikan_id={$report->id}")
             ->assertOk()
             ->assertSee('Tambah Pegawai');
 
-        // Test Livewire submit on Create Page
         Livewire::withQueryParams(['perbaikan_id' => $report->id])
             ->test(CreateAttendanceCorrection::class)
             ->fillForm([
@@ -689,7 +676,6 @@ class AttendanceReportTest extends TestCase
         $this->assertNotNull($correction);
         $this->assertEquals('HD', $correction->status_presensi);
 
-        // Test Edit Page renders
         $this->get("/admin/detail-perbaikan/{$correction->id}/edit")
             ->assertOk()
             ->assertSee('Ubah Data Presensi Pegawai');
@@ -709,7 +695,6 @@ class AttendanceReportTest extends TestCase
             'status' => 'draf',
         ]);
 
-        // Create records out of order
         $c3 = AttendanceCorrection::create([
             'perbaikan_id' => $report->id,
             'pegawai_id' => $empB->id,
@@ -745,10 +730,6 @@ class AttendanceReportTest extends TestCase
         $records = $test->instance()->getTableRecords();
         $this->assertEquals(3, $records->count());
 
-        // Order expected:
-        // 1) 2026-10-10 Andi Wijaya ($c2)
-        // 2) 2026-10-10 Budi Santoso ($c1)
-        // 3) 2026-10-20 Budi Santoso ($c3)
         $this->assertEquals($c2->id, $records->values()->get(0)->id);
         $this->assertEquals($c1->id, $records->values()->get(1)->id);
         $this->assertEquals($c3->id, $records->values()->get(2)->id);
@@ -773,7 +754,6 @@ class AttendanceReportTest extends TestCase
             'status' => 'draf',
         ]);
 
-        // September: 1 submission
         AttendanceCorrection::create([
             'perbaikan_id' => $report1->id,
             'pegawai_id' => $emp->id,
@@ -783,7 +763,6 @@ class AttendanceReportTest extends TestCase
             'jam_pulang_ubah' => '15:30:00',
         ]);
 
-        // October: 2 submissions
         AttendanceCorrection::create([
             'perbaikan_id' => $report2->id,
             'pegawai_id' => $emp->id,
@@ -817,7 +796,6 @@ class AttendanceReportTest extends TestCase
         $this->assertEquals(1, $september->total_pengajuan);
         $this->assertEquals('September 2026', $september->periode);
 
-        // Test Edit Employee page renders stats table
         $this->get("/admin/pegawai/{$emp->id}/edit")
             ->assertOk()
             ->assertSee('Riwayat')

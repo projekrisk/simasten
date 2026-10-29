@@ -48,7 +48,7 @@ class StatsOverview extends StatsOverviewWidget
                 ->color('danger'),
 
             Stat::make('Status HD', $hdCount.' Kasus')
-                ->description('Telat pulang')
+                ->description('Pulang cepat')
                 ->descriptionIcon('heroicon-m-clock')
                 ->color('warning'),
 
