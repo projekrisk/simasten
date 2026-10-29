@@ -112,7 +112,7 @@ class AttendanceCorrectionForm
                                     ->native(false)
                                     ->seconds(false)
                                     ->prefixIcon('heroicon-o-check-circle')
-                                    ->default('07:00')
+                                    ->default('07:15')
                                     ->required()
                                     ->helperText('Jam kedatangan resmi'),
 
@@ -121,7 +121,7 @@ class AttendanceCorrectionForm
                                     ->native(false)
                                     ->seconds(false)
                                     ->prefixIcon('heroicon-o-clock')
-                                    ->placeholder('15:35')
+                                    ->placeholder('16:35')
                                     ->helperText('Kosongkan bila tdk terekam'),
 
                                 TimePicker::make('jam_pulang_ubah')
@@ -129,7 +129,7 @@ class AttendanceCorrectionForm
                                     ->native(false)
                                     ->seconds(false)
                                     ->prefixIcon('heroicon-o-check-circle')
-                                    ->default('15:30')
+                                    ->default('16:35')
                                     ->required()
                                     ->helperText('Jam kepulangan resmi'),
                             ]),
